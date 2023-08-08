@@ -20,7 +20,7 @@ public class User {
  private Long id;
  private String name;
  
- @Column(unique=true)
+ @Column(columnDefinition ="TEXT")
  private String email;
  
  private String phone;

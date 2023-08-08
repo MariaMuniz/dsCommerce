@@ -6,7 +6,6 @@ import jakarta.persistence.ManyToOne;
 
 @Embeddable
 public class OrderItemPK {
-	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
