@@ -53,4 +53,11 @@ public class ProductService {
 		entity =repository.save(entity);
 		
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		repository.deleteById(id);
+		
+	}
+	
 }
