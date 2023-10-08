@@ -8,6 +8,8 @@ import com.projeto.dscommerce.entities.Order;
 import com.projeto.dscommerce.entities.OrderItem;
 import com.projeto.dscommerce.entities.enums.OrderStatus;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class OrderDTO {
 	private Long id;
     private Instant moment;
@@ -15,7 +17,12 @@ public class OrderDTO {
     
     private ClientDTO client;
     private PaymentDTO payment;
-    private List<OrderItemsDTO> items= new ArrayList<>();
+    
+    
+    @NotEmpty(message="Deve ter pelo menos um item")
+    private List<OrderItemDTO> items= new ArrayList<>();
+    
+    
 	public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
 		this.id = id;
 		this.moment = moment;
@@ -32,7 +39,7 @@ public class OrderDTO {
 		client = new ClientDTO(entity.getClient());
 		payment = (entity.getPayment()== null ) ?null : new PaymentDTO(entity.getPayment());
 		for(OrderItem item : entity.getItems()) {
-			OrderItemsDTO itemDTO = new OrderItemsDTO(item);
+			OrderItemDTO itemDTO = new OrderItemDTO(item);
 			items.add(itemDTO);
 		}
 	}
@@ -57,13 +64,13 @@ public class OrderDTO {
 		return payment;
 	}
 
-	public List<OrderItemsDTO> getItems() {
+	public List<OrderItemDTO> getItems() {
 		return items;
 	}
     
 	public Double getTotal() {
 		double sum=0.0;
-		for (OrderItemsDTO item : items) {
+		for (OrderItemDTO item : items) {
 			sum = sum+ item.getSubTotal();
 		
 		}
